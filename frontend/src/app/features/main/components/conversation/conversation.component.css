@@ -1,0 +1,35 @@
+.conversation {
+    min-height: 75vh;
+}
+.conversation .header {
+    border-bottom: 1px solid #545c6e;
+    min-height: 10vh;
+}
+
+.conversation .header .image-profile {
+    border-radius: 100%;
+}
+.conversation .body {
+    min-height: 65vh;
+}
+.conversation .body .container {
+    min-height: 55vh;
+}
+.conversation .body .controls .input {
+    background-color: #4e5566;
+    border-radius: 2rem;
+}
+.conversation .body .controls .input input {
+    background-color: transparent;
+    border: 0;
+    all: unset;
+}
+.conversation .body .controls .btn-send {
+    background-color: #726dfe;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+.conversation .body .controls .btn-send:hover {
+    background-color: #9490f7;
+}

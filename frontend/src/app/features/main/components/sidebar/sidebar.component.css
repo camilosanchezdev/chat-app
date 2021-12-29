@@ -1,0 +1,13 @@
+.sidebar {
+    background-color: #3a3f4d;
+    min-height: 75vh;
+    border-right: 1px solid #545c6e;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+.sidebar .btn-menu {
+    color: #9297a5;
+}
+.sidebar .btn-menu:hover {
+    color: rgb(213, 217, 230);
+}
