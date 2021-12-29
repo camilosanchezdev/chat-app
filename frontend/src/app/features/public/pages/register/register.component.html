@@ -1,1 +1,28 @@
-<p>register works!</p>
+<div class="row mt-5">
+  <div class="col-12">
+    <form>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="usernamechat">Username</label>
+            <input type="text" class="form-control" id="usernamechat">
+          </div>
+          <div class="form-group">
+            <label for="passwordchat">Password</label>
+            <input type="password" class="form-control" id="passwordchat">
+          </div>
+          <div class="form-group">
+            <label for="confirmpassword">Confirm password</label>
+            <input type="password" class="form-control" id="confirmpassword">
+          </div>
+        </div>
+        <div class="col-12">
+          <p>Already have an account? <a [routerLink]="['/user/login']" class="text-purple">Log In!</a></p>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-send w-100">Sign Up</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

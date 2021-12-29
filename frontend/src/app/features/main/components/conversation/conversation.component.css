@@ -37,11 +37,7 @@
     all: unset;
 }
 .conversation .body .controls .btn-send {
-    background-color: #726dfe;
     border-radius: 100%;
     width: 40px;
     height: 40px;
-}
-.conversation .body .controls .btn-send:hover {
-    background-color: #9490f7;
 }

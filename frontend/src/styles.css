@@ -10,3 +10,17 @@ body {
     border-radius: 2rem;
     color: white;
 }
+a.text-purple {
+    color: #726dfe;
+}
+a.text-purple:hover {
+    color: #9f9cfa;
+    text-decoration: none;
+}
+.btn-send {
+    background-color: #726dfe;
+    color: white;
+}
+.btn-send:hover {
+    background-color: #9490f7;
+}

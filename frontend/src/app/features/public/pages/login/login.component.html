@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="row mt-5">
+  <div class="col-12">
+    <form>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+          </div>
+        </div>
+        <div class="col-12">
+          <p>Don't have an account? <a class="text-purple" [routerLink]="['/user/signup']">Sign Up</a></p>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-send w-100">Log In</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
