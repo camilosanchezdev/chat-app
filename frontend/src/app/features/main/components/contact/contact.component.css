@@ -1,0 +1,9 @@
+.contact .contact-card {
+    background-color: #515868;
+    cursor: pointer;
+    transition: 0.5s ease;
+    border-radius: 0.5rem;
+}
+.contact .contact-card:hover {
+    background-color: #726dfe;
+}

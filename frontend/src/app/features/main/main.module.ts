@@ -6,10 +6,11 @@ import { OnlineComponent } from './pages/online/online.component'
 import { ConversationComponent } from './components/conversation/conversation.component'
 import { ContactComponent } from './components/contact/contact.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
-import { MainRoutingModule } from './main-routing.module'
+import { MainRoutingModule } from './main-routing.module';
+import { ProfileComponent } from './components/profile/profile.component'
 
 @NgModule({
-    declarations: [MainComponent, ContactsComponent, OnlineComponent, ConversationComponent, ContactComponent, SidebarComponent],
+    declarations: [MainComponent, ContactsComponent, OnlineComponent, ConversationComponent, ContactComponent, SidebarComponent, ProfileComponent],
     imports: [CommonModule, MainRoutingModule],
 })
 export class MainModule {}
