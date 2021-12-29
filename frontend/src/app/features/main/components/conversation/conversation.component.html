@@ -15,25 +15,35 @@
     </div>
     <div class="row body">
       <div class="col-12 d-flex justify-content-between flex-column">
-        <div class="row container">
-            <p>some text</p>
+        <div class="row messages my-3">
+            <!-- <div class="col-12">
+              <p class="text-center">31:41 PM, Sat, Jul 24, 2021</p>
+            </div> -->
+            <div class="col-12 sender">
+              <span>Hey!</span>
+            </div>
+            <div class="col-12 receiver d-flex justify-content-end" *ngFor="let message of messages">
+              <span>{{message}}</span>
+            </div>
         </div>
         <div class="row controls">
           <div class="col-12">
-            <div class="row mb-4">
-              <div class="col-10">
-                <div class="row d-flex justify-content-center">
-                  <div class="col-11 input py-2">
-                    <input type="text" placeholder="send a message..." class="pl-3 w-100" />
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
+              <div class="row mb-4">
+                <div class="col-10">
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-11 input py-2">
+                      <input type="text" formControlName="message" placeholder="send a message..." class="pl-3 w-100" />
+                    </div>
                   </div>
                 </div>
+                <div class="col-2">
+                  <button class="btn btn-send">
+                    <i class="bi bi-send-fill text-white text-center"></i>
+                  </button>
+                </div>
               </div>
-              <div class="col-2">
-                <button class="btn btn-send">
-                  <i class="bi bi-send-fill text-white text-center"></i>
-                </button>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

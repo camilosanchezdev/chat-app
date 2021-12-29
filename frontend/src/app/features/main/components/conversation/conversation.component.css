@@ -12,8 +12,20 @@
 .conversation .body {
     min-height: 65vh;
 }
-.conversation .body .container {
-    min-height: 55vh;
+.conversation .body .messages .sender span {
+    background-color: #a0a7bf;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+}
+.conversation .body .messages .sender,
+.conversation .body .messages .receiver {
+    height: 2.5rem;
+    margin: 0.5rem 0;
+}
+.conversation .body .messages .receiver span {
+    background-color: #726dfe;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
 }
 .conversation .body .controls .input {
     background-color: #4e5566;
