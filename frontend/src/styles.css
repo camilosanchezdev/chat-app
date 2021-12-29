@@ -1,1 +1,12 @@
+@import '~bootstrap-icons/font/bootstrap-icons.css';
 /* You can add global styles to this file, and also import other style files */
+body {
+    background: rgb(216, 218, 225);
+    background: linear-gradient(90deg, rgba(216, 218, 225, 1) 0%, rgba(130, 140, 173, 1) 100%);
+}
+.container {
+    background-color: #404757;
+    min-height: 75vh;
+    border-radius: 2rem;
+    color: white;
+}
