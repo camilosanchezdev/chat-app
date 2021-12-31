@@ -1,19 +1,24 @@
 <div class="row mt-5">
   <div class="col-12">
-    <form>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
       <div class="row">
         <div class="col-12">
           <div class="form-group">
             <label for="usernamechat">Username</label>
-            <input type="text" class="form-control" id="usernamechat">
+            <input type="text" class="form-control" id="usernamechat" formControlName="username">
+            <em class="text-danger" *ngIf="submitted && formGroup.controls.username.errors">Required*</em>
           </div>
           <div class="form-group">
             <label for="passwordchat">Password</label>
-            <input type="password" class="form-control" id="passwordchat">
+            <input type="password" class="form-control" id="passwordchat" formControlName="password">
+            <em class="text-danger" *ngIf="submitted && formGroup.controls.password.errors">Required*</em>
           </div>
           <div class="form-group">
+
             <label for="confirmpassword">Confirm password</label>
-            <input type="password" class="form-control" id="confirmpassword">
+            <input type="password" class="form-control" id="confirmpassword" formControlName="confirmPassword">
+            <em class="text-danger" *ngIf="submitted && formGroup.errors?.notmatched &&  !formGroup.controls.confirmPassword.errors">Passwords don't match</em>
+            <em class="text-danger" *ngIf="submitted && formGroup.controls.confirmPassword.errors">Required*</em>
           </div>
         </div>
         <div class="col-12">
