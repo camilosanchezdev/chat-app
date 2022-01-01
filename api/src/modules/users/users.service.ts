@@ -10,9 +10,19 @@ export class UsersService {
     constructor(@InjectRepository(UsersRepository) private usersRepository: UsersRepository, private jwtService: JwtService) {}
 
     async signUp(signUpCredentialsDto: SignUpCredentialsDto): Promise<any> {
-        return this.usersRepository.createUser(signUpCredentialsDto)
-    }
+        const { username, password } = signUpCredentialsDto
 
+        const salt = await bcrypt.genSalt()
+        const hashedPassword = await bcrypt.hash(password, salt)
+
+        const user = this.usersRepository.create({ username, password: hashedPassword })
+        try {
+            await this.usersRepository.save(user)
+            return await this.signIn(signUpCredentialsDto)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     async signIn(authCredentialsDto: AuthCredentialsDto): Promise<any> {
         const { username, password } = authCredentialsDto
 
