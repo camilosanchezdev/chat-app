@@ -7,10 +7,7 @@ export enum AuthActionTypes {
     Login = '[Auth] Login ',
     Logout = '[Auth] Logout User',
     ClearAuthData = '[Auth] Clear Authentication Data',
-    // RefreshToken = '[Auth] Resfresh Token',
-    // InitRefreshToken = '[Auth] Init Resfresh Token',
-    // SetRefreshedToken = '[Auth] Set Resfreshed Token',
-    // InitSetRefreshedToken = '[Auth] Init Set Resfreshed Token',
+    Register = '[SignUp] Register new user',
 }
 export class SetAuthDataAction implements Action {
     readonly type = AuthActionTypes.SetAuthData
@@ -24,8 +21,11 @@ export class LogoutAction implements Action {
     readonly type = AuthActionTypes.Logout
     constructor() {}
 }
-
+export class RegisterAction implements Action {
+    readonly type = AuthActionTypes.Register
+    constructor(public payload: AuthRequest) {}
+}
 export class ClearAuthDataAction implements Action {
     readonly type = AuthActionTypes.ClearAuthData
 }
-export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction
+export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction | RegisterAction

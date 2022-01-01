@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Subscription } from 'rxjs'
 import { confirmPassValidator } from 'src/app/common/directives/confirm-pass.directive'
+import { AuthService } from 'src/app/core/services/auth.service'
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+    subscriptions = new Subscription()
     formGroup: FormGroup
     submitted: boolean = false
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder, private authService: AuthService) {
         this.formGroup = this.formBuilder.group(
             {
                 username: [null, Validators.required],
@@ -20,6 +23,9 @@ export class RegisterComponent implements OnInit {
             { validators: confirmPassValidator }
         )
     }
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe()
+    }
 
     ngOnInit(): void {}
     onSubmit(form: FormGroup): void {
@@ -27,10 +33,14 @@ export class RegisterComponent implements OnInit {
         console.log(form)
 
         if (form.valid) {
-            console.log({
-                username: form.controls.username.value,
-                password: form.controls.password.value,
-            })
+            this.subscriptions.add(
+                this.authService
+                    .signUp({
+                        username: form.controls.username.value,
+                        password: form.controls.password.value,
+                    })
+                    .subscribe(console.log)
+            )
         }
     }
 }

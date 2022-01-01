@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store'
 import { EMPTY, Observable, of } from 'rxjs'
 import { map, switchMap, tap } from 'rxjs/operators'
 import * as fromAuthActions from './../actions/auth.action'
-import { AuthActionTypes, ClearAuthDataAction, LogoutAction } from './../actions/auth.action'
+import { AuthActionTypes, ClearAuthDataAction, LoginAction, LogoutAction, RegisterAction } from './../actions/auth.action'
 @Injectable()
 export class AuthEffects {
     constructor(private actions$: Actions, private router: Router) {}
@@ -47,5 +47,25 @@ export class AuthEffects {
                 return of(new ClearAuthDataAction())
             })
         )
+    )
+    registerAction$: Observable<Action> = createEffect(
+        () =>
+            // this.actions$.pipe(
+            //     ofType(fromAuthActions.AuthActionTypes.Register),
+            //     map((action) => <fromAuthActions.RegisterAction>action)
+            // ),
+            this.actions$.pipe(
+                ofType(fromAuthActions.AuthActionTypes.Register),
+                map((action) => <fromAuthActions.RegisterAction>action),
+                tap((action) => {
+                    const auth = {
+                        isAuthenticated: true,
+                        token: action.payload.token,
+                    }
+                    localStorage.setItem('chatapp', JSON.stringify(auth))
+                    this.router.navigate(['/'])
+                })
+            ),
+        { dispatch: false }
     )
 }

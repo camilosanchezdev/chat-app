@@ -9,7 +9,8 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
         case AuthActionTypes.SetAuthData: {
             return <AuthState>Object.assign({}, state, action.payload)
         }
-        case AuthActionTypes.Login: {
+        case AuthActionTypes.Login:
+        case AuthActionTypes.Register: {
             const auth: AuthState = {
                 isAuthenticated: true,
                 token: action.payload.token,
