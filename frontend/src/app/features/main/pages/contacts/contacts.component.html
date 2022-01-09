@@ -1,5 +1,5 @@
 <div class="row contacts">
-  <div class="col-12">
+  <div class="col-3">
     <app-profile></app-profile>
     <div class="row">
       <div class="col-12">
@@ -8,8 +8,11 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <app-contact *ngFor="let contact of contacts" [contact]="contact"></app-contact>
+        <app-contact *ngFor="let contact of contacts" [contact]="contact" (click)="openConversation(contact)"></app-contact>
       </div>
     </div>
+  </div>
+  <div class="col-9">
+    <app-conversation [conversation]="messages" [receiver]="receiver"></app-conversation>
   </div>
 </div>

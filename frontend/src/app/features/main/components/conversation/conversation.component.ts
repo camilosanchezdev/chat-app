@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { MessageModel } from 'src/app/common/models/message.model'
 
 @Component({
     selector: 'app-conversation',
@@ -7,8 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms'
     styleUrls: ['./conversation.component.css'],
 })
 export class ConversationComponent implements OnInit {
+    @Input() conversation: Array<MessageModel>
+    @Input() receiver: string
     formGroup: FormGroup
-    messages = ['this is the first message']
     constructor(private formBuilder: FormBuilder) {
         this.formGroup = this.formBuilder.group({
             message: [null],
@@ -17,7 +19,14 @@ export class ConversationComponent implements OnInit {
 
     ngOnInit(): void {}
     onSubmit(formGroup: FormGroup): void {
-        this.messages.push(formGroup.controls.message.value)
+        this.conversation.push({
+            id: 0,
+            date: new Date(),
+            message: formGroup.controls.message.value,
+            receiver: { id: 1, username: 'test' },
+            sender: { id: 2, username: 'admin' },
+        })
         this.formGroup.controls.message.setValue(null)
+        console.log(this.conversation)
     }
 }
