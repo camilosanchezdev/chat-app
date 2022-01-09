@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+import { UserService } from 'src/app/common/services/user.service'
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styles: [
-  ]
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styles: [],
 })
 export class MainComponent implements OnInit {
+    constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+        // this.userService.getContacts().subscribe(console.log)
+    }
 }
