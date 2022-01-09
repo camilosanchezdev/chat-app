@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects'
 import { AuthReducer } from './core/state/reducers/auth.reducer'
 import { AuthEffects } from './core/state/effects/auth.effects'
 import { HttpClientModule } from '@angular/common/http'
+import { tokenInterceptorProvider } from './core/interceptors/token.interceptor'
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -24,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http'
             autoPause: true, // Pauses recording actions and state changes when the extension window is not open
         }),
     ],
-    providers: [],
+    providers: [tokenInterceptorProvider],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

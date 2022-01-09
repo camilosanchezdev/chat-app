@@ -3,10 +3,11 @@ import { UserApi } from 'src/app/common/api/user.api'
 import { SignCredentials } from '../requests/signin-credentials'
 import { select, Store } from '@ngrx/store'
 import { AuthState } from '../state/app.state'
-import { map } from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { LoginAction, LogoutAction, RegisterAction } from '../state/actions/auth.action'
 import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
+import { getToken } from '../state/selectors/auth.selector'
 @Injectable({
     providedIn: 'root',
 })
@@ -58,5 +59,8 @@ export class AuthService {
                 return !x.app.isAuthenticated
             })
         )
+    }
+    getCurrentToken(): Observable<string> {
+        return this.store.pipe(select(getToken()), take(1))
     }
 }
