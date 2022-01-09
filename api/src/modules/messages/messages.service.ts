@@ -11,10 +11,7 @@ export class MessagesService {
             .createQueryBuilder('messages')
             .leftJoinAndSelect('messages.sender', 'user.sentMessages')
             .leftJoinAndSelect('messages.receiver', 'user.receivedMessages')
-            .where('(messages.sender.id = :id AND messages.receiver.id = :receiverid) OR (messages.sender.id = :receiverid OR messages.receiver.id = :id)', {
-                id: sender.id,
-                receiverid: receiverId,
-            })
+            .where('(messages.sender.id = :id AND messages.receiver.id = :receiverid) OR (messages.sender.id = :receiverid AND messages.receiver.id = :id)')
             .select([
                 'messages.id',
                 'messages.message',
@@ -25,6 +22,7 @@ export class MessagesService {
                 'user.receivedMessages.username',
             ])
             .orderBy('messages.date', 'ASC')
+            .setParameters({ id: sender.id, receiverid: receiverId })
             .getMany()
     }
 }
