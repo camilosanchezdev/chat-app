@@ -4,6 +4,7 @@ const INITIAL_STATE: AuthState = {
     isAuthenticated: false,
     token: '',
     username: '',
+    userId: null,
 }
 export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthActions): AuthState {
     switch (action.type) {
@@ -16,6 +17,7 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
                 isAuthenticated: true,
                 token: action.payload.token,
                 username: action.payload.username,
+                userId: action.payload.userId,
             }
             return <AuthState>Object.assign({}, state, auth)
         }

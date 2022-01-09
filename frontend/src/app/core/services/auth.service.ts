@@ -21,6 +21,7 @@ export class AuthService {
                     new LoginAction({
                         token: response.accessToken,
                         username: response.username,
+                        userId: response.id,
                     })
                 )
             })
@@ -36,6 +37,7 @@ export class AuthService {
                     new RegisterAction({
                         token: response.accessToken,
                         username: response.username,
+                        userId: response.id,
                     })
                 )
             })

@@ -33,6 +33,7 @@ export class AuthEffects {
                         isAuthenticated: true,
                         token: action.payload.token,
                         username: action.payload.username,
+                        userId: action.payload.userId,
                     }
 
                     localStorage.setItem('chatapp', JSON.stringify(auth))
