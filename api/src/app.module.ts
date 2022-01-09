@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersModule } from './modules/users/users.module'
 import { ContactsModule } from './modules/contacts/contacts.module'
+import { MessagesModule } from './modules/messages/messages.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import { ContactsModule } from './modules/contacts/contacts.module'
             synchronize: true,
         }),
         ContactsModule,
+        MessagesModule,
     ],
     controllers: [],
     providers: [],
