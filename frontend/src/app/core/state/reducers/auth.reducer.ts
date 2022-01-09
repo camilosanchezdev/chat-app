@@ -23,9 +23,7 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
             return INITIAL_STATE
         }
         case AuthActionTypes.GetComplete: {
-            console.log('test')
-
-            return <AuthState>Object.assign({}, state, { userId: action.payload })
+            return <AuthState>Object.assign({}, state, { contacts: action.payload })
         }
         default:
             return state

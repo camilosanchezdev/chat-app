@@ -31,6 +31,6 @@ export class ClearAuthDataAction implements Action {
 }
 export class GetComplete implements Action {
     readonly type = AuthActionTypes.GetComplete
-    constructor(public payload: number) {}
+    constructor(public payload: any) {}
 }
 export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction | RegisterAction | GetComplete
