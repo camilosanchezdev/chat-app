@@ -26,14 +26,13 @@ export class UsersService {
     }
     async signIn(authCredentialsDto: AuthCredentialsDto): Promise<any> {
         const { username, password } = authCredentialsDto
-
-        const user = await this.usersRepository.findOne({ username })
+        const user = await this.usersRepository.findOneOrFail({ where: { username: username }, select: ['id', 'username', 'password'] })
 
         if (user && (await bcrypt.compare(password, user.password))) {
             const payload: JwtPayload = { username }
             const accessToken = await this.jwtService.sign(payload)
 
-            return { accessToken, username }
+            return { accessToken, username, id: user.id }
         } else {
             throw new UnauthorizedException('Please check your login credentials')
         }

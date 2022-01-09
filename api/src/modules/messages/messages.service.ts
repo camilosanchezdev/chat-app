@@ -18,15 +18,6 @@ export class MessagesService {
             .leftJoinAndSelect('messages.sender', 'user.sentMessages')
             .leftJoinAndSelect('messages.receiver', 'user.receivedMessages')
             .where('(messages.sender.id = :id AND messages.receiver.id = :receiverid) OR (messages.sender.id = :receiverid AND messages.receiver.id = :id)')
-            .select([
-                'messages.id',
-                'messages.message',
-                'messages.date',
-                'user.sentMessages.id',
-                'user.sentMessages.username',
-                'user.receivedMessages.id',
-                'user.receivedMessages.username',
-            ])
             .orderBy('messages.date', 'ASC')
             .setParameters({ id: sender.id, receiverid: receiverId })
             .getMany()
