@@ -7,7 +7,7 @@
             <img src="/assets/img/image-profile.png" alt="" class="image-profile w-100">
           </div>
           <div class="col-8">
-            <h2 class="h4">{{receiver}}</h2>
+            <h2 class="h4">{{receiver?.username}}</h2>
             <p>Say hello!</p>
           </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="col-12 sender">
               <span>Hey!</span>
             </div>
-            <div class="col-12" *ngFor="let item of conversation" [ngClass]="item.receiver.id === 2 ? 'sender' : 'receiver d-flex justify-content-end'">
+            <div class="col-12" *ngFor="let item of conversation" [ngClass]="item.receiver.id === usernameLoggedId ? 'sender' : 'receiver d-flex justify-content-end'">
               <span [innerHtml]="item.message"></span>
             </div>
         </div>

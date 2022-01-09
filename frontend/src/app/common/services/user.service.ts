@@ -6,6 +6,8 @@ import { GetComplete } from 'src/app/core/state/actions/auth.action'
 import { AuthState } from 'src/app/core/state/app.state'
 import { ContactApi } from '../api/contact.api'
 import { MessageApi } from '../api/message.api'
+import { MessageModel } from '../models/message.model'
+import { SendMessageRequest } from '../requests/send-message.request'
 
 @Injectable({
     providedIn: 'root',
@@ -23,5 +25,11 @@ export class UserService {
     }
     getConversation(userId: number): Observable<any> {
         return this.messageApi.getConversation(userId)
+    }
+    sendMessage(sendMessageRequest: SendMessageRequest): Observable<MessageModel> {
+        return this.messageApi.sendMessage(sendMessageRequest)
+    }
+    getUserLogged(): Observable<any> {
+        return this.store.select((state) => state)
     }
 }
