@@ -19,6 +19,7 @@ export class AuthService {
                 this.store.dispatch(
                     new LoginAction({
                         token: response.accessToken,
+                        username: response.username,
                     })
                 )
             })
@@ -33,6 +34,7 @@ export class AuthService {
                 this.store.dispatch(
                     new RegisterAction({
                         token: response.accessToken,
+                        username: response.username,
                     })
                 )
             })

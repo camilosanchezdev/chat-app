@@ -11,6 +11,9 @@ export class UserApi {
     apiEndpoint: 'users'
     constructor(private http: HttpClient) {}
 
+    getUser(userId: number): Observable<any> {
+        return this.http.get(`${environment.apiUrl}/users/${userId}`)
+    }
     signIn(signInCredentials: SignCredentials): Observable<any> {
         return this.http.post(`${environment.apiUrl}/users/signin`, signInCredentials)
     }
