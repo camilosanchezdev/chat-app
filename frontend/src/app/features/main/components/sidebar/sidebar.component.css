@@ -4,6 +4,7 @@
     border-right: 1px solid #545c6e;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
+    height: 80vh;
 }
 .sidebar .btn-menu {
     color: #9297a5;

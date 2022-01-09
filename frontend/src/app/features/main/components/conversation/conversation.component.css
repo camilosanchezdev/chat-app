@@ -1,16 +1,40 @@
 .conversation {
-    min-height: 75vh;
+    height: 80vh;
 }
 .conversation .header {
     border-bottom: 1px solid #545c6e;
-    min-height: 10vh;
+    height: 10vh;
+}
+.conversation .body {
+    height: 70vh;
 }
 
 .conversation .header .image-profile {
     border-radius: 100%;
 }
-.conversation .body {
-    min-height: 65vh;
+.conversation .body .messages {
+    max-height: 55vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+/* width */
+.conversation .body .messages::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.conversation .body .messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.conversation .body .messages::-webkit-scrollbar-thumb {
+    background: #9f9cec;
+}
+
+/* Handle on hover */
+.conversation .body .messages::-webkit-scrollbar-thumb:hover {
+    background: #726dfe;
 }
 .conversation .body .messages .sender span {
     background-color: #a0a7bf;
