@@ -5,6 +5,7 @@ import { SignUpCredentialsDto } from './dto/signup-credentials.dto'
 import { UsersRepository } from './users.repository'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
+import { JwtPayload } from './jwt-payload.interface'
 @Injectable()
 export class UsersService {
     constructor(@InjectRepository(UsersRepository) private usersRepository: UsersRepository, private jwtService: JwtService) {}
@@ -29,8 +30,10 @@ export class UsersService {
         const user = await this.usersRepository.findOne({ username })
 
         if (user && (await bcrypt.compare(password, user.password))) {
-            const accessToken = await this.jwtService.sign(username)
-            return { accessToken }
+            const payload: JwtPayload = { username }
+            const accessToken = await this.jwtService.sign(payload)
+
+            return { accessToken, username }
         } else {
             throw new UnauthorizedException('Please check your login credentials')
         }
