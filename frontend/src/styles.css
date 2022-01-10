@@ -24,3 +24,6 @@ a.text-purple:hover {
 .btn-send:hover {
     background-color: #9490f7;
 }
+.modal-content {
+    background: none;
+}

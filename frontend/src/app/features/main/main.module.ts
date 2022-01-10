@@ -8,10 +8,11 @@ import { ContactComponent } from './components/contact/contact.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { MainRoutingModule } from './main-routing.module'
 import { ProfileComponent } from './components/profile/profile.component'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component'
 
 @NgModule({
-    declarations: [MainComponent, ContactsComponent, OnlineComponent, ConversationComponent, ContactComponent, SidebarComponent, ProfileComponent],
+    declarations: [MainComponent, ContactsComponent, OnlineComponent, ConversationComponent, ContactComponent, SidebarComponent, ProfileComponent, ChangeAvatarComponent],
     imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class MainModule {}

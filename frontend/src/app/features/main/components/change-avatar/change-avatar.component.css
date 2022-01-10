@@ -1,0 +1,40 @@
+.avatars {
+    height: 50vh;
+    background-color: #404757;
+    border-radius: 2rem;
+}
+.avatars-list {
+    height: 35vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+/* width */
+.avatars-list::-webkit-scrollbar {
+    width: 10px;
+    margin-right: 10px;
+}
+
+/* Track */
+.avatars-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.avatars-list::-webkit-scrollbar-thumb {
+    background: #9f9cec;
+}
+
+/* Handle on hover */
+.avatars-list::-webkit-scrollbar-thumb:hover {
+    background: #726dfe;
+}
+.avatars .title {
+    border-bottom: 1px solid #545c6e;
+    height: 4rem;
+}
+.avatars .avatars-list {
+    margin: 2rem;
+}
+.avatars .avatars-list .avatar {
+    cursor: pointer;
+}
