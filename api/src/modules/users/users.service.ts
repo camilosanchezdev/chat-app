@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { AuthCredentialsDto } from './dto/auth-credentials.dto'
 import { SignUpCredentialsDto } from './dto/signup-credentials.dto'
@@ -6,6 +6,8 @@ import { UsersRepository } from './users.repository'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { JwtPayload } from './jwt-payload.interface'
+import { NotFoundError } from 'rxjs'
+import { UserEntity } from './user.entity'
 @Injectable()
 export class UsersService {
     constructor(@InjectRepository(UsersRepository) private usersRepository: UsersRepository, private jwtService: JwtService) {}
@@ -36,5 +38,14 @@ export class UsersService {
         } else {
             throw new UnauthorizedException('Please check your login credentials')
         }
+    }
+    async getAllOnline(user: UserEntity): Promise<any> {
+        console.log(user)
+
+        const users = await this.usersRepository.createQueryBuilder('user').where('user.id != :id', { id: user.id }).getMany()
+        if (!users) {
+            throw new NotFoundException()
+        }
+        return users
     }
 }

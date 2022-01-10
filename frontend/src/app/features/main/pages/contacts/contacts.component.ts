@@ -13,6 +13,7 @@ import { UserService } from 'src/app/common/services/user.service'
 export class ContactsComponent implements OnInit, OnDestroy {
     subscriptions = new Subscription()
     contacts: Array<ContactModel>
+    contactsAvailables: Array<UserModel>
     messages: Array<MessageModel>
     receiver: UserModel
     constructor(private userService: UserService) {}
@@ -24,18 +25,18 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.subscriptions.add(
             this.userService.getContacts().subscribe((contacts) => {
                 this.contacts = contacts
-                console.log(contacts)
+                this.contactsAvailables = contacts.map((x) => x.user_contact)
                 if (contacts.length > 0) {
-                    this.openConversation(this.contacts[0])
+                    this.openConversation(this.contactsAvailables[0])
                 }
             })
         )
     }
-    openConversation(contact: ContactModel): void {
-        this.receiver = contact.user_contact
+    openConversation(contact: UserModel): void {
+        this.receiver = contact
 
         this.subscriptions.add(
-            this.userService.getConversation(contact.user_contact.id).subscribe((messages) => {
+            this.userService.getConversation(contact.id).subscribe((messages) => {
                 this.messages = messages
             })
         )

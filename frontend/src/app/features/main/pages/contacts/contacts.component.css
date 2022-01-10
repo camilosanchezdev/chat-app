@@ -1,3 +1,6 @@
 .contacts {
     height: 80vh;
 }
+.border-gray {
+    border-right: 1px solid #545c6e;
+}
