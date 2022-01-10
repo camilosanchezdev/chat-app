@@ -9,7 +9,12 @@ import { UserModel } from 'src/app/common/models/user.model'
 })
 export class ContactComponent implements OnInit {
     @Input() contact: UserModel
+    @Input() receiver: UserModel
+    isSelected: boolean = false
     constructor() {}
 
     ngOnInit(): void {}
+    selectItem(): void {
+        this.isSelected = true
+    }
 }

@@ -8,7 +8,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <app-contact *ngFor="let contact of contactsAvailables" [contact]="contact" (click)="openConversation(contact)"></app-contact>
+        <app-contact *ngFor="let contact of contactsAvailables" [contact]="contact" [receiver]="receiver" (click)="openConversation(contact)"></app-contact>
       </div>
     </div>
   </div>

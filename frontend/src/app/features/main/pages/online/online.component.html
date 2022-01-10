@@ -24,7 +24,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <app-contact *ngFor="let contact of usersOnline" [contact]="contact" (click)="openConversation(contact)">
+        <app-contact *ngFor="let contact of usersOnline" [contact]="contact" [receiver]="receiver" (click)="openConversation(contact)">
         </app-contact>
       </div>
     </div>
