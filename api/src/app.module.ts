@@ -4,6 +4,7 @@ import { UsersModule } from './modules/users/users.module'
 import { ContactsModule } from './modules/contacts/contacts.module'
 import { MessagesModule } from './modules/messages/messages.module'
 import { ChatGateway } from './gateway/chat.gateway'
+import { StatusesModule } from './modules/statuses/statuses.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { ChatGateway } from './gateway/chat.gateway'
         ContactsModule,
         MessagesModule,
         ChatGateway,
+        StatusesModule,
     ],
     controllers: [],
     providers: [],
