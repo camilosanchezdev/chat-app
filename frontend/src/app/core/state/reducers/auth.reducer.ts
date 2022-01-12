@@ -5,6 +5,8 @@ const INITIAL_STATE: AuthState = {
     token: '',
     username: '',
     userId: null,
+    statusId: null,
+    avatarId: null,
 }
 export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthActions): AuthState {
     switch (action.type) {
@@ -18,6 +20,8 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
                 token: action.payload.token,
                 username: action.payload.username,
                 userId: action.payload.userId,
+                statusId: action.payload.statusId,
+                avatarId: action.payload.avatarId,
             }
             return <AuthState>Object.assign({}, state, auth)
         }
@@ -26,6 +30,12 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
         }
         case AuthActionTypes.GetComplete: {
             return <AuthState>Object.assign({}, state, { contacts: action.payload })
+        }
+        case AuthActionTypes.SetAvatar: {
+            const localState = JSON.parse(localStorage.getItem('chatapp'))
+            const newLocalState = Object.assign({}, localState, { avatarId: action.payload.avatar })
+            localStorage.setItem('chatapp', JSON.stringify(newLocalState))
+            return <AuthState>Object.assign({}, state, { avatarId: action.payload.avatar })
         }
         default:
             return state

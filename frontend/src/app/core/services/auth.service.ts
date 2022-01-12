@@ -22,6 +22,8 @@ export class AuthService {
                         token: response.accessToken,
                         username: response.username,
                         userId: response.id,
+                        statusId: response.status,
+                        avatarId: response.avatar,
                     })
                 )
             })
@@ -38,6 +40,8 @@ export class AuthService {
                         token: response.accessToken,
                         username: response.username,
                         userId: response.id,
+                        statusId: response.status,
+                        avatarId: response.avatar,
                     })
                 )
             })

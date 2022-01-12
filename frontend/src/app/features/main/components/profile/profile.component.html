@@ -1,9 +1,14 @@
 <div class="row mt-3">
   <div class="col-4">
-    <img src="/assets/img/image-profile.png" alt="" class="image-profile w-100 rounded-circle" (click)="changeAvatar()">
+    <img onerror="'/assets/img/image-profile.png'"  [src]="'/assets/avatars/' + avatarId + '.png'" alt="" class="image-profile w-100 rounded-circle" (click)="changeAvatar()">
   </div>
   <div class="col-8">
     <h1 class="h3">@{{username}}</h1>
-    <p>sample status</p>
+    <!-- <p>sample status</p> -->
+    <form [formGroup]="formGroup">
+      <ng-select [clearable]="false" [searchable]="false" [items]="statuses" bindLabel="name" bindValue="id" formControlName="statuses" class="custom">
+      </ng-select>
+    </form>
+
   </div>
 </div>
