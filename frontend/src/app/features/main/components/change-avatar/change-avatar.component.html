@@ -3,7 +3,7 @@
     <h2 class="text-white text-center pt-2">Select an Avatar</h2>
   </div>
   <div class="col-11 flex-wrap d-flex avatars-list">
-    <div class="avatar" *ngFor="let avatar of avatars">
+    <div class="avatar" *ngFor="let avatar of avatars" (click)="onChange(avatar)">
       <img [src]="'/assets/avatars/' + avatar + '.png'" alt="" class="">
     </div>
   </div>

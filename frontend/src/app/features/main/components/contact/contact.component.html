@@ -2,7 +2,7 @@
   <div class="col-10">
     <div class="row contact-card py-3" [ngClass]="{'selected': contact === receiver}">
       <div class="col-4">
-        <img src="/assets/img/image-profile.png" alt="" class="image-profile w-100 rounded-circle">
+        <img onerror="'/assets/img/image-profile.png'"  [src]="'/assets/avatars/' + contact?.avatar + '.png'" alt="" class="image-profile w-100 rounded-circle">
       </div>
       <div class="col-8">
         <h6 class="h5">{{contact?.username}}</h6>

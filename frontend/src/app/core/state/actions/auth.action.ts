@@ -9,6 +9,7 @@ export enum AuthActionTypes {
     ClearAuthData = '[Auth] Clear Authentication Data',
     Register = '[SignUp] Register new user',
     GetComplete = '[User Data] Set User Data',
+    SetAvatar = '[User Data] Set Avatar',
 }
 export class SetAuthDataAction implements Action {
     readonly type = AuthActionTypes.SetAuthData
@@ -33,4 +34,8 @@ export class GetComplete implements Action {
     readonly type = AuthActionTypes.GetComplete
     constructor(public payload: any) {}
 }
-export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction | RegisterAction | GetComplete
+export class SetAvatar implements Action {
+    readonly type = AuthActionTypes.SetAvatar
+    constructor(public payload: any) {}
+}
+export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction | RegisterAction | GetComplete | SetAvatar

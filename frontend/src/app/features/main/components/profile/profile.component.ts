@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Subscription } from 'rxjs'
+import { forkJoin, Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
+import { StatusModel } from 'src/app/common/models/status.model'
 import { UserService } from 'src/app/common/services/user.service'
 import { ChangeAvatarComponent } from '../change-avatar/change-avatar.component'
 
@@ -12,19 +15,60 @@ import { ChangeAvatarComponent } from '../change-avatar/change-avatar.component'
 export class ProfileComponent implements OnInit, OnDestroy {
     private subscriptions = new Subscription()
     username: string
-    constructor(private userService: UserService, private modalService: NgbModal) {}
+    statusId: number
+    avatarId: number
+    statuses: Array<StatusModel>
+    formGroup: FormGroup
+    constructor(private userService: UserService, private modalService: NgbModal, private fb: FormBuilder) {
+        this.formGroup = this.fb.group({
+            statuses: [null],
+        })
+    }
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
     }
 
     ngOnInit(): void {
         this.subscriptions.add(
-            this.userService.getUserLogged().subscribe((x) => {
-                this.username = x.app.username
+            this.userService
+                .getUserLogged()
+                .pipe(
+                    switchMap((state) => {
+                        this.username = state.app.username
+                        this.statusId = state.app.statusId
+                        this.avatarId = state.app.avatarId
+
+                        return this.userService.getStatuses()
+                    })
+                )
+                .subscribe((statuses) => {
+                    this.statuses = statuses
+                    this.formGroup.controls.statuses.setValue(statuses.find((x) => x.id === this.statusId).id)
+                })
+        )
+    }
+    getStatuses(): void {
+        this.subscriptions.add(
+            this.userService.getStatuses().subscribe((statuses) => {
+                this.statuses = statuses
             })
         )
     }
     changeAvatar(): void {
-        this.modalService.open(ChangeAvatarComponent, { centered: true, size: 'l' })
+        // const modal = this.modalService.open(ChangeAvatarComponent, { centered: true, size: 'l' })
+        // modal.result.then((data) => {
+        //     console.log(data)
+        // })
+        this.modalService
+            .open(ChangeAvatarComponent, { centered: true, size: 'l' })
+            .closed.pipe(
+                switchMap((avatar) => {
+                    console.log(avatar)
+                    return this.userService.getUserLogged()
+                })
+            )
+            .subscribe((state) => {
+                this.avatarId = state.app.avatarId
+            })
     }
 }

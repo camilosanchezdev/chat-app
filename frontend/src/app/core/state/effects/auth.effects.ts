@@ -15,6 +15,7 @@ export class AuthEffects {
         const auth = localStorage.getItem('chatapp')
         if (auth) {
             const credentials = JSON.parse(auth)
+
             return of(new fromAuthActions.SetAuthDataAction(credentials))
         } else {
             return EMPTY
@@ -27,13 +28,13 @@ export class AuthEffects {
                 ofType(fromAuthActions.AuthActionTypes.Login),
                 map((action) => <fromAuthActions.LoginAction>action),
                 tap((action) => {
-                    console.log(action)
-
                     const auth = {
                         isAuthenticated: true,
                         token: action.payload.token,
                         username: action.payload.username,
                         userId: action.payload.userId,
+                        statusId: action.payload.statusId,
+                        avatarId: action.payload.avatarId,
                     }
 
                     localStorage.setItem('chatapp', JSON.stringify(auth))

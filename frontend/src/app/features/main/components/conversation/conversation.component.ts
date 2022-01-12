@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { AfterViewChecked, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Subscription } from 'rxjs'
 import { MessageModel } from 'src/app/common/models/message.model'
@@ -12,17 +12,23 @@ import { SocketService } from 'src/app/core/services/socket.service'
     templateUrl: './conversation.component.html',
     styleUrls: ['./conversation.component.css'],
 })
-export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecked, OnChanges {
     @ViewChild('scrollMe') private myScrollContainer: ElementRef
     private subscriptions = new Subscription()
     @Input() conversation: Array<MessageModel>
     @Input() receiver: UserModel
     usernameLoggedId: number
     formGroup: FormGroup
+    avatarUrl: string
     constructor(private formBuilder: FormBuilder, private userService: UserService, private socketService: SocketService) {
         this.formGroup = this.formBuilder.group({
             message: [null],
         })
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.receiver) {
+            this.avatarUrl = '/assets/avatars/' + this.receiver?.avatar + '.png'
+        }
     }
     ngAfterViewChecked(): void {
         this.scrollToBottom()
@@ -51,7 +57,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     }
     onSubmit(formGroup: FormGroup): void {
         const message: SendMessageRequest = { receiverId: this.receiver.id, message: formGroup.controls.message.value }
-        this.subscriptions.add(this.userService.sendMessage(message).subscribe(console.log))
+        this.subscriptions.add(this.userService.sendMessage(message).subscribe())
         const newMessage: MessageModel = { id: 0, date: new Date(), message: formGroup.controls.message.value, receiver: this.receiver, sender: null }
         this.socketService.sendMessage(newMessage)
         this.formGroup.controls.message.setValue(null)

@@ -30,7 +30,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ngOnInit(): void {}
     onSubmit(form: FormGroup): void {
         this.submitted = true
-        console.log(form)
 
         if (form.valid) {
             this.subscriptions.add(
@@ -39,7 +38,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                         username: form.controls.username.value,
                         password: form.controls.password.value,
                     })
-                    .subscribe(console.log)
+                    .subscribe()
             )
         }
     }
