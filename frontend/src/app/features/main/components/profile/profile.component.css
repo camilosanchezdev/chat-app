@@ -3,14 +3,9 @@
     min-height: 0px;
     border-radius: 0;
 }
-/* .ng-select.custom .ng-select-container {
-    background: red;
-} */
-/* .ng-select.custom .ng-select-container {
-    min-height: 0px;
-    border-radius: 0;
-    background: red;
-} */
+.image-profile {
+    cursor: pointer;
+}
 .ng-select.custom ::ng-deep .ng-select-container {
     min-height: 0px;
     border: 0;
