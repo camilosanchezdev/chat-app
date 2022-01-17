@@ -11,6 +11,7 @@ import { ProfileComponent } from './components/profile/profile.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component'
 import { NgSelectModule } from '@ng-select/ng-select'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 @NgModule({
     declarations: [
         MainComponent,
@@ -22,6 +23,6 @@ import { NgSelectModule } from '@ng-select/ng-select'
         ProfileComponent,
         ChangeAvatarComponent,
     ],
-    imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule, NgSelectModule],
+    imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule, NgSelectModule, NgbModule],
 })
 export class MainModule {}
