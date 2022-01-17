@@ -1,3 +1,28 @@
 .main {
+    position: relative;
+    min-height: 100vh;
+}
+.main-home {
     height: 80vh;
+}
+.footer {
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    background-color: #404757;
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+.footer .btn-menu {
+    color: #9297a5;
+}
+.footer .btn-menu:hover {
+    color: rgb(213, 217, 230);
+}
+@media (max-width: 992px) {
+    .container {
+        max-width: 90%;
+    }
 }

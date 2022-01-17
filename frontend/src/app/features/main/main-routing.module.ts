@@ -11,11 +11,11 @@ const routes: Routes = [
         children: [
             {
                 path: '',
-                component: ContactsComponent,
+                component: OnlineComponent,
             },
             {
-                path: 'online',
-                component: OnlineComponent,
+                path: 'contacts',
+                component: ContactsComponent,
             },
         ],
     },

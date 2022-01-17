@@ -15,7 +15,7 @@
 </div> -->
 
 <div class="row online d-flex">
-  <div class="col-3 border-gray">
+  <div class="col-3 border-gray d-none d-lg-block">
     <app-profile></app-profile>
     <div class="row">
       <div class="col-12">
@@ -23,13 +23,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 list-contacts">
         <app-contact *ngFor="let contact of usersOnline" [contact]="contact" [receiver]="receiver" (click)="openConversation(contact)">
         </app-contact>
       </div>
     </div>
   </div>
-  <div class="col-9">
+  <div class="col-lg-9 col-md-12">
     <app-conversation [conversation]="messages" [receiver]="receiver"></app-conversation>
   </div>
 </div>

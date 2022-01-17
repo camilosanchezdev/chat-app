@@ -3,7 +3,7 @@
 }
 .conversation .header {
     border-bottom: 1px solid #545c6e;
-    height: 10vh;
+    min-height: 12vh;
 }
 .conversation .body {
     height: 70vh;

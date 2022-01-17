@@ -4,3 +4,28 @@
 .border-gray {
     border-right: 1px solid #545c6e;
 }
+/*  */
+.list-contacts {
+    max-height: 60vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+/* width */
+.list-contacts::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.list-contacts::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.list-contacts::-webkit-scrollbar-thumb {
+    background: #9f9cec;
+}
+
+/* Handle on hover */
+.list-contacts::-webkit-scrollbar-thumb:hover {
+    background: #726dfe;
+}
