@@ -11,7 +11,8 @@ import { ProfileComponent } from './components/profile/profile.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ChangeAvatarComponent } from './components/change-avatar/change-avatar.component'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component'
 @NgModule({
     declarations: [
         MainComponent,
@@ -22,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
         SidebarComponent,
         ProfileComponent,
         ChangeAvatarComponent,
+        ConfirmationModalComponent,
     ],
     imports: [CommonModule, MainRoutingModule, FormsModule, ReactiveFormsModule, NgSelectModule, NgbModule],
 })

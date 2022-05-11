@@ -1,0 +1,26 @@
+.avatars {
+    height: 50vh;
+    background-color: #404757;
+    border-radius: 2rem;
+}
+.avatars-list {
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.avatars .title {
+    border-bottom: 1px solid #545c6e;
+    height: 4rem;
+}
+.separator-top {
+    border-top: 1px solid #545c6e;
+}
+.avatars .avatars-list {
+    margin: 2rem;
+}
+.avatars .avatars-list .avatar {
+    cursor: pointer;
+}
+.icon {
+    font-size: 8rem;
+}
