@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 )
                 .subscribe((statuses) => {
                     this.statuses = statuses
-                    this.formGroup.controls.statuses.setValue(statuses.find((x) => x.id === this.statusId).id)
+                    if (this.statusId) this.formGroup.controls.statuses.setValue(statuses.find((x) => x.id === this.statusId).id)
                 })
         )
     }
@@ -55,15 +55,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         )
     }
     changeAvatar(): void {
-        // const modal = this.modalService.open(ChangeAvatarComponent, { centered: true, size: 'l' })
-        // modal.result.then((data) => {
-        //     console.log(data)
-        // })
         this.modalService
             .open(ChangeAvatarComponent, { centered: true, size: 'l' })
             .closed.pipe(
                 switchMap((avatar) => {
-                    console.log(avatar)
                     return this.userService.getUserLogged()
                 })
             )

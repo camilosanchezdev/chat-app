@@ -3,14 +3,14 @@
 }
 .conversation .header {
     border-bottom: 1px solid #545c6e;
-    min-height: 12vh;
-}
-.conversation .body {
-    height: 70vh;
+    max-height: 25vh;
 }
 
 .conversation .header .image-profile {
     border-radius: 100%;
+}
+.conversation .body .content {
+    max-height: 65vh;
 }
 .conversation .body .messages {
     max-height: 55vh;
@@ -50,6 +50,9 @@
     background-color: #726dfe;
     padding: 0.5rem 1rem;
     border-radius: 1rem;
+}
+.conversation .body .controls {
+    max-height: 10vh;
 }
 .conversation .body .controls .input {
     background-color: #4e5566;

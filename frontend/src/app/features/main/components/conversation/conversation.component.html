@@ -14,14 +14,11 @@
       </div>
     </div>
     <div class="row body">
-      <div class="col-12 d-flex justify-content-between flex-column">
+      <div class="col-12 d-flex justify-content-between flex-column content">
         <div class="row messages my-3" #scrollMe>
             <!-- <div class="col-12">
               <p class="text-center">31:41 PM, Sat, Jul 24, 2021</p>
             </div> -->
-            <div class="col-12 sender">
-              <span>Hey!</span>
-            </div>
             <div class="col-12" *ngFor="let item of conversation" [ngClass]="item.receiver.id === usernameLoggedId ? 'sender' : 'receiver d-flex justify-content-end'">
               <span [innerHtml]="item.message"></span>
             </div>
