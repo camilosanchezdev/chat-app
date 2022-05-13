@@ -1,4 +1,4 @@
-import { Controller, Get, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { GetUser } from '../users/get-user.decorator'
 import { UserEntity } from '../users/user.entity'
@@ -12,5 +12,14 @@ export class ContactsController {
     @Get()
     getContacts(@GetUser() user: UserEntity): Promise<any> {
         return this.contactsService.getAll(user)
+    }
+
+    @Post('/add')
+    addContact(@GetUser() user: UserEntity, @Body('contactId') contactId: number): Promise<any> {
+        return this.contactsService.addContact(user, contactId)
+    }
+    @Delete('/remove/:id')
+    removeContact(@GetUser() user: UserEntity, @Param('id') contactId: number): Promise<any> {
+        return this.contactsService.removeContact(user, contactId)
     }
 }

@@ -24,21 +24,30 @@ export class ContactsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.subscriptions.add(
             this.userService.getContacts().subscribe((contacts) => {
+                console.log(contacts)
+
                 this.contacts = contacts
-                this.contactsAvailables = contacts.map((x) => x.user_contact)
+                this.contactsAvailables = contacts
                 if (contacts.length > 0) {
                     this.openConversation(this.contactsAvailables[0])
                 }
             })
         )
+        this.subscriptions.add(
+            this.userService.getCurrentContacts().subscribe((contacts) => {
+                if (contacts) {
+                    this.contacts = contacts
+                    this.contactsAvailables = contacts
+                    if (contacts.length > 0) {
+                        this.openConversation(this.contactsAvailables[0])
+                    }
+                }
+                console.log(contacts)
+            })
+        )
     }
     openConversation(contact: UserModel): void {
         this.receiver = contact
-
-        this.subscriptions.add(
-            this.userService.getConversation(contact.id).subscribe((messages) => {
-                this.messages = messages
-            })
-        )
+        this.userService.setCurrentReceiver(contact)
     }
 }

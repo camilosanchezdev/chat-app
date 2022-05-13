@@ -33,11 +33,6 @@ export class OnlineComponent implements OnInit, OnDestroy {
 
     openConversation(contact: UserModel): void {
         this.receiver = contact
-
-        this.subscriptions.add(
-            this.userService.getConversation(contact.id).subscribe((messages) => {
-                this.messages = messages
-            })
-        )
+        this.userService.setCurrentReceiver(contact)
     }
 }

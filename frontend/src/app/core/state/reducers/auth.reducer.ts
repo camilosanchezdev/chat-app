@@ -7,6 +7,7 @@ const INITIAL_STATE: AuthState = {
     userId: null,
     statusId: null,
     avatarId: null,
+    currentReceiver: null,
 }
 export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthActions): AuthState {
     switch (action.type) {
@@ -36,6 +37,9 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
             const newLocalState = Object.assign({}, localState, { avatarId: action.payload.avatar })
             localStorage.setItem('chatapp', JSON.stringify(newLocalState))
             return <AuthState>Object.assign({}, state, { avatarId: action.payload.avatar })
+        }
+        case AuthActionTypes.SetCurrentReceiver: {
+            return <AuthState>Object.assign({}, state, { currentReceiver: action.payload })
         }
         default:
             return state

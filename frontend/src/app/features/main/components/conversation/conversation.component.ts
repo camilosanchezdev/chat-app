@@ -1,6 +1,7 @@
 import { AfterViewChecked, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { Subscription } from 'rxjs'
+import { EMPTY, Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 import { MessageModel } from 'src/app/common/models/message.model'
 import { UserModel } from 'src/app/common/models/user.model'
 import { SendMessageRequest } from 'src/app/common/requests/send-message.request'
@@ -16,10 +17,11 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     @ViewChild('scrollMe') private myScrollContainer: ElementRef
     private subscriptions = new Subscription()
     @Input() conversation: Array<MessageModel>
-    @Input() receiver: UserModel
+    receiver: UserModel
     usernameLoggedId: number
     formGroup: FormGroup
     avatarUrl: string
+    isContact: boolean = false
     constructor(private formBuilder: FormBuilder, private userService: UserService, private socketService: SocketService) {
         this.formGroup = this.formBuilder.group({
             message: [null],
@@ -54,6 +56,26 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
                 this.scrollToBottom()
             })
         )
+
+        this.subscriptions.add(
+            this.userService
+                .getCurrentReceiver()
+                .pipe(
+                    switchMap((receiver) => {
+                        if (receiver) {
+                            this.receiver = receiver
+                            return this.userService.getCurrentContacts()
+                        } else {
+                            return EMPTY
+                        }
+                    })
+                )
+                .subscribe((contacts) => {
+                    if (contacts && this.receiver) {
+                        this.isContact = contacts.some((x) => x.id === this.receiver.id)
+                    }
+                })
+        )
     }
     onSubmit(formGroup: FormGroup): void {
         const message: SendMessageRequest = { receiverId: this.receiver.id, message: formGroup.controls.message.value }
@@ -61,5 +83,22 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
         const newMessage: MessageModel = { id: 0, date: new Date(), message: formGroup.controls.message.value, receiver: this.receiver, sender: null }
         this.socketService.sendMessage(newMessage)
         this.formGroup.controls.message.setValue(null)
+    }
+    addContact(contactId): void {
+        this.subscriptions.add(this.userService.addContact(contactId).subscribe(console.log))
+        this.isContact = true
+    }
+    removeContact(contactId): void {
+        this.subscriptions.add(
+            this.userService
+                .removeContact(contactId)
+                .pipe(
+                    switchMap(() => {
+                        return this.userService.getContacts()
+                    })
+                )
+                .subscribe(console.log)
+        )
+        this.isContact = false
     }
 }

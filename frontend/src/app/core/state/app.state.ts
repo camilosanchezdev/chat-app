@@ -1,3 +1,6 @@
+import { ContactModel } from 'src/app/common/models/contact.model'
+import { UserModel } from 'src/app/common/models/user.model'
+
 export interface AuthState {
     isAuthenticated: boolean
     token: string
@@ -5,5 +8,6 @@ export interface AuthState {
     userId: number
     statusId: number
     avatarId: number
-    contacts?: any
+    contacts?: ContactModel[]
+    currentReceiver?: UserModel
 }

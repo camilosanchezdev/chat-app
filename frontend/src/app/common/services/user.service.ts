@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { GetComplete, SetAvatar } from 'src/app/core/state/actions/auth.action'
+import { GetComplete, SetAvatar, SetCurrentReceiverAction } from 'src/app/core/state/actions/auth.action'
 import { AuthState } from 'src/app/core/state/app.state'
+import { getContacts, getCurrentReceiver } from 'src/app/core/state/selectors/auth.selector'
 import { ContactApi } from '../api/contact.api'
 import { MessageApi } from '../api/message.api'
 import { StatusApi } from '../api/status.api'
 import { UserApi } from '../api/user.api'
 import { MessageModel } from '../models/message.model'
+import { UserModel } from '../models/user.model'
 import { ChangeAvatarRequest } from '../requests/change-avatar.request'
 import { SendMessageRequest } from '../requests/send-message.request'
 
@@ -54,5 +56,20 @@ export class UserService {
                 return response
             })
         )
+    }
+    addContact(contactId: number): Observable<any> {
+        return this.contactApi.addContact(contactId)
+    }
+    removeContact(contactId: number): Observable<any> {
+        return this.contactApi.removeContact(contactId)
+    }
+    getCurrentReceiver(): Observable<UserModel> {
+        return this.store.select(getCurrentReceiver())
+    }
+    setCurrentReceiver(user: UserModel): void {
+        this.store.dispatch(new SetCurrentReceiverAction(user))
+    }
+    getCurrentContacts(): Observable<any> {
+        return this.store.select(getContacts())
     }
 }

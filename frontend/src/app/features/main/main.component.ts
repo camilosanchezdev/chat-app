@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Subscription } from 'rxjs'
+import { EMPTY, Subscription } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
+import { MessageModel } from 'src/app/common/models/message.model'
+import { UserModel } from 'src/app/common/models/user.model'
+import { UserService } from 'src/app/common/services/user.service'
 import { AuthService } from 'src/app/core/services/auth.service'
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component'
 
@@ -11,12 +15,31 @@ import { ConfirmationModalComponent } from './components/confirmation-modal/conf
 })
 export class MainComponent implements OnInit, OnDestroy {
     private subscriptions = new Subscription()
-    constructor(private authService: AuthService, private modalService: NgbModal) {}
+    messages: Array<MessageModel>
+    receiver: UserModel
+    constructor(private authService: AuthService, private modalService: NgbModal, private userService: UserService) {}
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.subscriptions.add(
+            this.userService
+                .getCurrentReceiver()
+                .pipe(
+                    switchMap((user) => {
+                        if (user) {
+                            return this.userService.getConversation(user.id)
+                        } else {
+                            return EMPTY
+                        }
+                    })
+                )
+                .subscribe((messages) => {
+                    this.messages = messages
+                })
+        )
+    }
     logout(): void {
         this.subscriptions.add(
             this.modalService.open(ConfirmationModalComponent, { centered: true, size: 'l' }).closed.subscribe((value) => {

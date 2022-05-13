@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store'
+import { UserModel } from 'src/app/common/models/user.model'
 import { AuthRequest } from '../../requests/auth.request'
 import { AuthState } from '../app.state'
 
@@ -10,6 +11,7 @@ export enum AuthActionTypes {
     Register = '[SignUp] Register new user',
     GetComplete = '[User Data] Set User Data',
     SetAvatar = '[User Data] Set Avatar',
+    SetCurrentReceiver = '[User Application] Set Current Receiver',
 }
 export class SetAuthDataAction implements Action {
     readonly type = AuthActionTypes.SetAuthData
@@ -38,4 +40,17 @@ export class SetAvatar implements Action {
     readonly type = AuthActionTypes.SetAvatar
     constructor(public payload: any) {}
 }
-export type AuthActions = LoginAction | SetAuthDataAction | LogoutAction | ClearAuthDataAction | RegisterAction | GetComplete | SetAvatar
+
+export class SetCurrentReceiverAction implements Action {
+    readonly type = AuthActionTypes.SetCurrentReceiver
+    constructor(public payload: UserModel) {}
+}
+export type AuthActions =
+    | LoginAction
+    | SetAuthDataAction
+    | LogoutAction
+    | ClearAuthDataAction
+    | RegisterAction
+    | GetComplete
+    | SetAvatar
+    | SetCurrentReceiverAction

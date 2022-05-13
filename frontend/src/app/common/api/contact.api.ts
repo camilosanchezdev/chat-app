@@ -13,4 +13,10 @@ export class ContactApi {
     getContacts(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/contacts`)
     }
+    addContact(contactId: number): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/contacts/add`, { contactId })
+    }
+    removeContact(contactId: number): Observable<any> {
+        return this.http.delete(`${environment.apiUrl}/contacts/remove/${contactId}`)
+    }
 }
