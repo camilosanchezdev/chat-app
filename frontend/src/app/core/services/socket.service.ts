@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core'
-import { AuthService } from './auth.service'
-import { WebSocketSubject, webSocket } from 'rxjs/webSocket'
 import { environment } from 'src/environments/environment'
-import { Store } from '@ngrx/store'
-import { AuthState } from '../state/app.state'
-import { mergeMap, retry, retryWhen } from 'rxjs/operators'
-import { Observable, of } from 'rxjs'
+import { Observable } from 'rxjs'
 import * as io from 'socket.io-client'
+import { MessageModel } from 'src/app/common/models/message.model'
 @Injectable({
     providedIn: 'root',
 })
 export class SocketService {
     private socket
-    constructor(private authService: AuthService, private store: Store<AuthState>) {}
-    sendMessage(message): void {
+    private socket2
+    constructor() {}
+    sendMessage(message: MessageModel): void {
         this.socket.emit('message', message)
     }
     getMessages() {
@@ -24,6 +21,21 @@ export class SocketService {
             })
             return () => {
                 this.socket.disconnect()
+            }
+        })
+        return observable
+    }
+    sendOnlineUser(userId: number, isOnline: boolean): void {
+        this.socket2.emit('online', { userId, isOnline })
+    }
+    getOnline() {
+        let observable = new Observable((observer) => {
+            this.socket2 = io.io(environment.socketUrl, { transports: ['websocket'] })
+            this.socket2.on('online', (data) => {
+                observer.next(data)
+            })
+            return () => {
+                this.socket2.disconnect()
             }
         })
         return observable

@@ -10,4 +10,5 @@ export interface AuthState {
     avatarId: number
     contacts?: ContactModel[]
     currentReceiver?: UserModel
+    onlineUsers?: UserModel[]
 }

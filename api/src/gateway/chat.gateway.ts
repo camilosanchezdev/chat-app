@@ -2,10 +2,15 @@ import { WebSocketGateway, SubscribeMessage, MessageBody, WebSocketServer } from
 // @WebSocketGateway(80, {namespace: 'chat'})
 @WebSocketGateway()
 export class ChatGateway {
-    @WebSocketServer()
-    server
+    @WebSocketServer() server
+
     @SubscribeMessage('message')
-    handleMessage(@MessageBody() message: string) {
+    handleMessage(@MessageBody() message: any) {
         this.server.emit('message', message)
+    }
+
+    @SubscribeMessage('online')
+    handleOnline(@MessageBody() userId: number) {
+        this.server.emit('online', userId)
     }
 }

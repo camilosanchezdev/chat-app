@@ -44,7 +44,7 @@ export class MainComponent implements OnInit, OnDestroy {
         this.subscriptions.add(
             this.modalService.open(ConfirmationModalComponent, { centered: true, size: 'l' }).closed.subscribe((value) => {
                 if (value) {
-                    this.authService.logout()
+                    // this.authService.logout().subscribe()
                 }
             })
         )

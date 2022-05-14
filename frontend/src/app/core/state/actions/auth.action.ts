@@ -12,6 +12,7 @@ export enum AuthActionTypes {
     GetComplete = '[User Data] Set User Data',
     SetAvatar = '[User Data] Set Avatar',
     SetCurrentReceiver = '[User Application] Set Current Receiver',
+    SetOnlineUsers = '[User Application] Set Online Users',
 }
 export class SetAuthDataAction implements Action {
     readonly type = AuthActionTypes.SetAuthData
@@ -45,6 +46,10 @@ export class SetCurrentReceiverAction implements Action {
     readonly type = AuthActionTypes.SetCurrentReceiver
     constructor(public payload: UserModel) {}
 }
+export class SetOnlineUsers implements Action {
+    readonly type = AuthActionTypes.SetOnlineUsers
+    constructor(public payload: any) {}
+}
 export type AuthActions =
     | LoginAction
     | SetAuthDataAction
@@ -54,3 +59,4 @@ export type AuthActions =
     | GetComplete
     | SetAvatar
     | SetCurrentReceiverAction
+    | SetOnlineUsers

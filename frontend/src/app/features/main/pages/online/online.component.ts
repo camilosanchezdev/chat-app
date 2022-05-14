@@ -29,6 +29,16 @@ export class OnlineComponent implements OnInit, OnDestroy {
                 }
             })
         )
+        this.subscriptions.add(
+            this.userService.getOnlineUsers().subscribe((users) => {
+                if (users) {
+                    this.usersOnline = users
+                    if (users.length > 0) {
+                        this.openConversation(this.usersOnline[0])
+                    }
+                }
+            })
+        )
     }
 
     openConversation(contact: UserModel): void {

@@ -8,6 +8,7 @@ const INITIAL_STATE: AuthState = {
     statusId: null,
     avatarId: null,
     currentReceiver: null,
+    onlineUsers: null,
 }
 export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthActions): AuthState {
     switch (action.type) {
@@ -40,6 +41,9 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
         }
         case AuthActionTypes.SetCurrentReceiver: {
             return <AuthState>Object.assign({}, state, { currentReceiver: action.payload })
+        }
+        case AuthActionTypes.SetOnlineUsers: {
+            return <AuthState>Object.assign({}, state, { onlineUsers: action.payload })
         }
         default:
             return state
