@@ -22,6 +22,9 @@ export class UserApi {
     signUp(signUpCredentials: SignCredentials): Observable<any> {
         return this.http.post(`${environment.apiUrl}/users/signup`, signUpCredentials)
     }
+    logout(): Observable<any> {
+        return this.http.put(`${environment.apiUrl}/users/logout`, null)
+    }
     getAllUsers(): Observable<any> {
         return this.http.get(`${environment.apiUrl}/users`)
     }

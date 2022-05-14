@@ -17,6 +17,9 @@ export class UserEntity {
     @Column({ default: 1 })
     avatar: number
 
+    @Column({ default: false })
+    isOnline: boolean
+
     @OneToMany((_type) => ContactEntity, (x) => x.user)
     @JoinTable()
     contacts: ContactEntity[]

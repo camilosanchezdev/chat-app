@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { AuthCredentialsDto } from './dto/auth-credentials.dto'
 import { ChangeAvatarDto } from './dto/change-avatar.dto'
@@ -19,6 +19,11 @@ export class UsersController {
     @Post('/signin')
     signIn(@Body() authCredentialsDto: AuthCredentialsDto): Promise<any> {
         return this.usersService.signIn(authCredentialsDto)
+    }
+    @Put('/logout')
+    @UseGuards(AuthGuard())
+    logout(@GetUser() user: UserEntity) {
+        return this.usersService.logout(user)
     }
     @Get()
     @UseGuards(AuthGuard())
