@@ -3,10 +3,18 @@
     <div class="row contact-card py-3" [ngClass]="{'selected': contact === receiver}">
       <div class="col-4">
         <img onerror="'/assets/img/image-profile.png'"  [src]="'/assets/avatars/' + contact?.avatar + '.png'" alt="" class="image-profile w-100 rounded-circle">
+       
       </div>
-      <div class="col-8">
+      <div class="col-6">
         <h6 class="h5">{{contact?.username}}</h6>
         <span>Say Hello</span>
+      </div>
+      <div class="col-2">
+        <div class="online-indicator" ngbTooltip="Online" *ngIf="contact?.isOnline">
+          <span class="blink"></span>
+        </div>
+        <div class="offline-indicator" ngbTooltip="Offline" *ngIf="!contact?.isOnline"></div>
+        <i class="bi bi-envelope-exclamation-fill" ngbTooltip="Unread messages"></i>
       </div>
     </div>
   </div>

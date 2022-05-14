@@ -22,6 +22,7 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
     formGroup: FormGroup
     avatarUrl: string
     isContact: boolean = false
+    userId: number
     constructor(private formBuilder: FormBuilder, private userService: UserService, private socketService: SocketService) {
         this.formGroup = this.formBuilder.group({
             message: [null],
@@ -46,14 +47,20 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
 
     ngOnInit(): void {
         this.subscriptions.add(
-            this.userService.getUserLogged().subscribe((x) => {
-                this.usernameLoggedId = x.app.userId
+            this.userService.getUserLoggedId().subscribe((x) => {
+                // TODO quitar
+                this.usernameLoggedId = x
             })
         )
         this.subscriptions.add(
             this.socketService.getMessages().subscribe((message: MessageModel) => {
-                this.conversation.push(message)
-                this.scrollToBottom()
+                if (
+                    (message.receiverId == this.receiver.id && message.senderId === this.usernameLoggedId) ||
+                    (message.receiverId === this.usernameLoggedId && message.senderId === this.receiver.id)
+                ) {
+                    this.conversation.push(message)
+                    this.scrollToBottom()
+                }
             })
         )
 
@@ -78,9 +85,16 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
         )
     }
     onSubmit(formGroup: FormGroup): void {
+        console.log(this.usernameLoggedId)
         const message: SendMessageRequest = { receiverId: this.receiver.id, message: formGroup.controls.message.value }
         this.subscriptions.add(this.userService.sendMessage(message).subscribe())
-        const newMessage: MessageModel = { id: 0, date: new Date(), message: formGroup.controls.message.value, receiver: this.receiver, sender: null }
+        const newMessage: MessageModel = {
+            id: 0,
+            date: new Date(),
+            message: formGroup.controls.message.value,
+            receiverId: this.receiver.id,
+            senderId: this.usernameLoggedId,
+        }
         this.socketService.sendMessage(newMessage)
         this.formGroup.controls.message.setValue(null)
     }
