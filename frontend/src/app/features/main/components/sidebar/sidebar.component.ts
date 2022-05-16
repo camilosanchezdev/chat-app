@@ -31,15 +31,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
         )
         this.subscriptions.add(
             this.userService.getOnline().subscribe((userSocket: { userId: number; isOnline: boolean }) => {
-                // console.log(message)
-                const users = this.usersOnline.map((user) => {
-                    if (user.id === userSocket.userId) {
-                        return { ...user, isOnline: userSocket.isOnline }
-                    } else {
-                        return user
-                    }
-                })
-                this.userService.setOnlineUsers(users)
+                if (this.usersOnline) {
+                    const users = this.usersOnline.map((user) => {
+                        if (user.id === userSocket.userId) {
+                            return { ...user, isOnline: userSocket.isOnline }
+                        } else {
+                            return user
+                        }
+                    })
+                    this.userService.setOnlineUsers(users)
+                }
             })
         )
         this.subscriptions.add(

@@ -45,6 +45,29 @@ export function AuthReducer(state: AuthState = INITIAL_STATE, action: AuthAction
         case AuthActionTypes.SetOnlineUsers: {
             return <AuthState>Object.assign({}, state, { onlineUsers: action.payload })
         }
+        case AuthActionTypes.SetUnreadMessages: {
+            if (state.unreadMessages) {
+                if (!state.unreadMessages.find((x) => x.senderUserId === action.payload.senderUserId)) {
+                    return <AuthState>Object.assign({}, state, { unreadMessages: [...state.unreadMessages, action.payload] })
+                }
+            } else {
+                return <AuthState>Object.assign({}, state, { unreadMessages: [action.payload] })
+            }
+
+            return state
+        }
+        case AuthActionTypes.RemoveMessageUnread: {
+            if (state.unreadMessages) {
+                const unreadMessage = state.unreadMessages.findIndex((x) => x.senderUserId === action.payload)
+                if (unreadMessage !== -1) {
+                    const newState = [...state.unreadMessages]
+                    newState.splice(unreadMessage, 1)
+                    return <AuthState>Object.assign({}, state, { unreadMessages: newState })
+                }
+            }
+
+            return state
+        }
         default:
             return state
     }

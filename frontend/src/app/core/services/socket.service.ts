@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment'
 import { Observable } from 'rxjs'
 import * as io from 'socket.io-client'
 import { MessageModel } from 'src/app/common/models/message.model'
+import { MessageInputModel } from 'src/app/common/models/message-input.model'
 @Injectable({
     providedIn: 'root',
 })
@@ -10,7 +11,7 @@ export class SocketService {
     private socket
     private socket2
     constructor() {}
-    sendMessage(message: MessageModel): void {
+    sendMessage(message: MessageInputModel): void {
         this.socket.emit('message', message)
     }
     getMessages() {

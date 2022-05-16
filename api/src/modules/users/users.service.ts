@@ -6,7 +6,6 @@ import { UsersRepository } from './users.repository'
 import * as bcrypt from 'bcrypt'
 import { JwtService } from '@nestjs/jwt'
 import { JwtPayload } from './jwt-payload.interface'
-import { NotFoundError } from 'rxjs'
 import { UserEntity } from './user.entity'
 import { ChangeAvatarDto } from './dto/change-avatar.dto'
 @Injectable()
@@ -55,11 +54,40 @@ export class UsersService {
         }
     }
     async getAllOnline(user: UserEntity): Promise<any> {
-        const users = await this.usersRepository.createQueryBuilder('user').where('user.id != :id', { id: user.id }).getMany()
-        if (!users) {
-            throw new NotFoundException()
-        }
-        return users
+        // TODO: remove literal query
+
+        const query = await this.usersRepository.query(`
+        SELECT 
+            r.id,
+            r.avatar,
+            r.statusId,
+            r.isOnline,
+            r.username,
+            COUNT(*) > 1 AS unread_messages
+        FROM
+            (SELECT 
+                *,
+                    IF(((readed = 0 AND t.id_message IS NULL)
+                        OR (readed = 1 AND t.id_message IS NOT NULL)), 0, 1) AS unread_messages
+            FROM
+                (SELECT 
+                u.id,
+                    u.avatar,
+                    u.statusId,
+                    u.isOnline,
+                    u.username,
+                    IF(m.readed_at IS NULL, 0, 1) AS readed,
+                    m.id AS id_message
+            FROM
+                db_chatapp.user AS u
+            LEFT JOIN db_chatapp.messages AS m ON u.id = m.senderId AND m.receiverId = ${user.id}) AS t
+            GROUP BY t.id , unread_messages
+            HAVING t.id != ${user.id}) AS r
+        GROUP BY r.id
+        ;
+        `)
+
+        return query
     }
 
     async changeAvatar(user: UserEntity, avatar: ChangeAvatarDto): Promise<any> {

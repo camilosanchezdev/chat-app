@@ -3,4 +3,5 @@ export interface UserModel {
     username: string
     avatar: number
     isOnline: boolean
+    unread_messages?: string
 }

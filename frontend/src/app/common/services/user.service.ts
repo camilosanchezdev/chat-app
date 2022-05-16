@@ -3,9 +3,16 @@ import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { SocketService } from 'src/app/core/services/socket.service'
-import { GetComplete, SetAvatar, SetCurrentReceiverAction, SetOnlineUsers } from 'src/app/core/state/actions/auth.action'
+import {
+    GetComplete,
+    RemoveMessageUnreadAction,
+    SetAvatar,
+    SetCurrentReceiverAction,
+    SetOnlineUsers,
+    SetUnreadMessagesAction,
+} from 'src/app/core/state/actions/auth.action'
 import { AuthState } from 'src/app/core/state/app.state'
-import { getContacts, getCurrentReceiver, getOnlineUsers, getUserId } from 'src/app/core/state/selectors/auth.selector'
+import { getContacts, getCurrentReceiver, getOnlineUsers, getUnreadMessages, getUserId } from 'src/app/core/state/selectors/auth.selector'
 import { ContactApi } from '../api/contact.api'
 import { MessageApi } from '../api/message.api'
 import { StatusApi } from '../api/status.api'
@@ -92,5 +99,17 @@ export class UserService {
     }
     getOnline(): Observable<any> {
         return this.socketService.getOnline()
+    }
+    setUnreadMessages(newMessage: { senderUserId: number; senderUserName: string }) {
+        return this.store.dispatch(new SetUnreadMessagesAction(newMessage))
+    }
+    getUnreadMessages() {
+        return this.store.select(getUnreadMessages())
+    }
+    removeMessageUnread(userId: number) {
+        return this.store.dispatch(new RemoveMessageUnreadAction(userId))
+    }
+    markAsRead(messageId: number): Observable<any> {
+        return this.messageApi.markAsRead(messageId)
     }
 }

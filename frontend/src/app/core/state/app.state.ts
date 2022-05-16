@@ -11,4 +11,5 @@ export interface AuthState {
     contacts?: ContactModel[]
     currentReceiver?: UserModel
     onlineUsers?: UserModel[]
+    unreadMessages?: Array<{ senderUserId: number; senderUserName: string }>
 }

@@ -15,6 +15,7 @@ export class OnlineComponent implements OnInit, OnDestroy {
     receiver: UserModel
     messages: Array<MessageModel>
     usersOnline: Array<UserModel>
+    unreadMessages: any
     constructor(private userService: UserService) {}
     ngOnDestroy(): void {
         this.subscriptions.unsubscribe()
@@ -33,9 +34,23 @@ export class OnlineComponent implements OnInit, OnDestroy {
             this.userService.getOnlineUsers().subscribe((users) => {
                 if (users) {
                     this.usersOnline = users
+                    // contact?.unread_messages === '1' ||
                     if (users.length > 0) {
                         this.openConversation(this.usersOnline[0])
                     }
+                    if (this.usersOnline.some((x) => x.unread_messages === '1'))
+                        this.usersOnline.forEach((element) => {
+                            if (element.unread_messages === '1') {
+                                this.userService.setUnreadMessages({ senderUserId: element.id, senderUserName: '' })
+                            }
+                        })
+                }
+            })
+        )
+        this.subscriptions.add(
+            this.userService.getUnreadMessages().subscribe((unreadMessages) => {
+                if (unreadMessages) {
+                    this.unreadMessages = unreadMessages
                 }
             })
         )
@@ -44,5 +59,6 @@ export class OnlineComponent implements OnInit, OnDestroy {
     openConversation(contact: UserModel): void {
         this.receiver = contact
         this.userService.setCurrentReceiver(contact)
+        this.userService.removeMessageUnread(this.receiver.id)
     }
 }

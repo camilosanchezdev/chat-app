@@ -14,7 +14,7 @@
           <span class="blink"></span>
         </div>
         <div class="offline-indicator" ngbTooltip="Offline" *ngIf="!contact?.isOnline"></div>
-        <i class="bi bi-envelope-exclamation-fill" ngbTooltip="Unread messages"></i>
+        <i class="bi bi-envelope-exclamation-fill text-warning" ngbTooltip="Unread messages" *ngIf="hasUnreadMessages"></i>
       </div>
     </div>
   </div>

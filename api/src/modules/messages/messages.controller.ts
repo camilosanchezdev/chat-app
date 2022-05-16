@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { GetUser } from '../users/get-user.decorator'
 import { UserEntity } from '../users/user.entity'
@@ -17,5 +17,9 @@ export class MessagesController {
     @Post()
     sendMessage(@GetUser() userSender: UserEntity, @Body() sendMessageDto: SendMessageDto): Promise<any> {
         return this.messagesService.sendMessage(userSender, sendMessageDto)
+    }
+    @Put(':id/read')
+    markAsRead(@GetUser() user: UserEntity, @Param('id') senderId: any): Promise<any> {
+        return this.messagesService.markAsRead(user, senderId)
     }
 }

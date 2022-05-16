@@ -1,7 +1,9 @@
+import { UserModel } from './user.model'
+
 export interface MessageModel {
     id: number
     date: Date
     message: string
-    receiverId: number
-    senderId: number
+    receiver: UserModel
+    sender: UserModel
 }

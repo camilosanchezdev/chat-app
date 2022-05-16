@@ -13,6 +13,8 @@ export enum AuthActionTypes {
     SetAvatar = '[User Data] Set Avatar',
     SetCurrentReceiver = '[User Application] Set Current Receiver',
     SetOnlineUsers = '[User Application] Set Online Users',
+    SetUnreadMessages = '[User Application] Set Unread Messages',
+    RemoveMessageUnread = '[User Application] Remove Unread Message',
 }
 export class SetAuthDataAction implements Action {
     readonly type = AuthActionTypes.SetAuthData
@@ -50,6 +52,15 @@ export class SetOnlineUsers implements Action {
     readonly type = AuthActionTypes.SetOnlineUsers
     constructor(public payload: any) {}
 }
+export class SetUnreadMessagesAction implements Action {
+    readonly type = AuthActionTypes.SetUnreadMessages
+    constructor(public payload: { senderUserId: number; senderUserName: string }) {}
+}
+export class RemoveMessageUnreadAction implements Action {
+    readonly type = AuthActionTypes.RemoveMessageUnread
+    constructor(public payload: number) {}
+}
+
 export type AuthActions =
     | LoginAction
     | SetAuthDataAction
@@ -60,3 +71,5 @@ export type AuthActions =
     | SetAvatar
     | SetCurrentReceiverAction
     | SetOnlineUsers
+    | SetUnreadMessagesAction
+    | RemoveMessageUnreadAction

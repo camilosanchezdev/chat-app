@@ -19,4 +19,8 @@ export class MessageApi {
     sendMessage(sendMessageRequest: SendMessageRequest): Observable<MessageModel> {
         return this.http.post<MessageModel>(`${environment.apiUrl}/messages/`, sendMessageRequest)
     }
+
+    markAsRead(messageId): Observable<any> {
+        return this.http.put<MessageModel>(`${environment.apiUrl}/messages/${messageId}/read`, null)
+    }
 }

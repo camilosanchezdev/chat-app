@@ -12,6 +12,9 @@ export class MessageEntity {
     @Column()
     date: Date
 
+    @Column({ name: 'readed_at', nullable: true })
+    readedAt: Date
+
     @ManyToOne((_type) => UserEntity, (x) => x.sentMessages)
     sender: UserEntity
 

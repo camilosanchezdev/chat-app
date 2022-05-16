@@ -9,3 +9,5 @@ export const getContacts = (): MemoizedSelector<object, any> => createSelector(s
 
 export const getUserId = (): MemoizedSelector<object, number> => createSelector(selectAuth, (state: AuthState) => state.userId)
 export const getOnlineUsers = (): MemoizedSelector<object, UserModel[]> => createSelector(selectAuth, (state: AuthState) => state.onlineUsers)
+export const getUnreadMessages = (): MemoizedSelector<object, { senderUserId: number; senderUserName: string }[]> =>
+    createSelector(selectAuth, (state: AuthState) => state.unreadMessages)

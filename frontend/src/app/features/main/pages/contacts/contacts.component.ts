@@ -24,8 +24,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.subscriptions.add(
             this.userService.getContacts().subscribe((contacts) => {
-                console.log(contacts)
-
                 this.contacts = contacts
                 this.contactsAvailables = contacts
                 if (contacts.length > 0) {
@@ -42,7 +40,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
                         this.openConversation(this.contactsAvailables[0])
                     }
                 }
-                console.log(contacts)
             })
         )
     }
