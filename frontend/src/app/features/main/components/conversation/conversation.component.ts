@@ -89,17 +89,19 @@ export class ConversationComponent implements OnInit, OnDestroy, AfterViewChecke
         )
     }
     onSubmit(formGroup: FormGroup): void {
-        const message: SendMessageRequest = { receiverId: this.receiver.id, message: formGroup.controls.message.value }
-        this.subscriptions.add(this.userService.sendMessage(message).subscribe())
-        const newMessage: MessageInputModel = {
-            id: 0,
-            date: new Date(),
-            message: formGroup.controls.message.value,
-            receiverId: this.receiver.id,
-            senderId: this.usernameLoggedId,
+        if (formGroup.get('message').value !== null && formGroup.get('message').value !== '') {
+            const message: SendMessageRequest = { receiverId: this.receiver.id, message: formGroup.controls.message.value }
+            this.subscriptions.add(this.userService.sendMessage(message).subscribe())
+            const newMessage: MessageInputModel = {
+                id: 0,
+                date: new Date(),
+                message: formGroup.controls.message.value,
+                receiverId: this.receiver.id,
+                senderId: this.usernameLoggedId,
+            }
+            this.socketService.sendMessage(newMessage)
+            this.formGroup.controls.message.setValue(null)
         }
-        this.socketService.sendMessage(newMessage)
-        this.formGroup.controls.message.setValue(null)
     }
     addContact(contactId): void {
         this.subscriptions.add(this.userService.addContact(contactId).subscribe())
